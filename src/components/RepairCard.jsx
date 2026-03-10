@@ -16,12 +16,24 @@ export default function RepairCard({ repair }) {
   const status = getStatusConfig();
 
   return (
-    <div className="group relative overflow-hidden glass-panel rounded-3xl p-6 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 bg-white">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl"></div>
+    <div className="group relative overflow-hidden glass-panel rounded-3xl p-6 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 bg-white flex flex-col h-full border border-slate-100">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl pointer-events-none"></div>
       
-      <div className="relative z-10 flex flex-col h-full">
-        <div className="flex justify-between items-start mb-6 gap-4 border-b border-slate-100 pb-4">
-          <h3 className="text-xl font-bold text-slate-800 leading-tight pr-4">{repair.title}</h3>
+      <div className="relative z-10 flex flex-col flex-grow">
+        <div className="flex justify-between items-start mb-4 gap-4 border-b border-slate-100 pb-4 flex-wrap">
+          <div className="flex-1 pr-2">
+            <h3 className="text-xl font-bold text-slate-800 leading-tight mb-2">{repair.title}</h3>
+            {repair.priority && (
+              <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-bold ${
+                repair.priority === 'Urgente' ? 'bg-red-100 text-red-700' :
+                repair.priority === 'Alta' ? 'bg-orange-100 text-orange-700' :
+                repair.priority === 'Media' ? 'bg-blue-100 text-blue-700' :
+                'bg-slate-100 text-slate-600'
+              }`}>
+                Prioridad {repair.priority}
+              </span>
+            )}
+          </div>
           <span className={`flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold ${status.bg} ${status.color} shadow-sm border border-white/50`}>
             {status.icon}
             {status.text}
